@@ -22,12 +22,14 @@ main > #output_area div.row.w-100
 
 main > #input_area > #age_area,
 main > #input_area > #km_area,
+main > #input_area > #name_area,
 main > #output_area #trip_data
 {
     background-color: lightgray;
 }
 
-main > #input_area > #age_area input:checked ~ *
+main > #input_area > #age_area input:checked ~ *,
+main > #input_area > #name_area input:checked + label
 {
     color: blue;
 }
