@@ -29,10 +29,10 @@
                 <div id="name_area" class="row flex-column align-items-start border border-info rounded-2 m-1 py-2">
                     <h5>Anagrafe</h5>
                     <div class="col-8 my-1">
-                        <input class="form-control ps-1" type="text" id="given_name" minlength="2" maxlength="20" placeholder="Nome di battesimo" required>
+                        <input class="form-control ps-1" type="text" id="given_name" minlength="2" maxlength="12" placeholder="Nome di battesimo" required>
                     </div>
                     <div class="col-9 my-1">
-                        <input class="form-control ps-1" type="text" id="last_name" minlength="2" maxlength="25" placeholder="Cognome" required>
+                        <input class="form-control ps-1" type="text" id="last_name" minlength="2" maxlength="14" placeholder="Cognome" required>
                     </div>
                     <div class="my-1">
                         <input class="form-check-input" type="radio" id="woman" name="gender">
@@ -78,13 +78,13 @@
             </section>
             <!-- Sezione di output (veicolata da specifica funzione Javascript) -->
             <section id="output_area" class="col-4 d-inline-flex flex-column offset-3 align-self-start mt-2">
-                <div class="offcanvas offcanvas-bottom w-75 h-50 mx-auto bg-success" tabindex="-1" id="your_ticket" aria-labelledby="your_ticket_label">
+                <div class="offcanvas offcanvas-bottom border border-5 rounded-3 w-75 h-50 mx-auto bg-success" tabindex="-1" id="your_ticket" aria-labelledby="your_ticket_label">
                     <div class="offcanvas-header">
                       <h5 class="offcanvas-title text-white-50 mx-auto" id="your_ticket_label">IL TUO BIGLIETTO</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div class="offcanvas-body p-5">
-                        <div class="row bg-info border border-5">
+                    <div class="offcanvas-body p-4">
+                        <div class="row mx-1 bg-info border border-5">
                             <div id="passenger" class="col-4 bg-light py-1">
                                 <div class="d-flex justify-content-between fs-5 fw-bold text-black-50">
                                     <span id="p_title">Passeggero</span>
@@ -117,6 +117,10 @@
                                 <h6 class="text-black-50">Importo</h6>
                                 <h4>53.12 €</h4>
                             </div>
+                        </div>
+                        <div class="w-100 d-flex justify-content-center pt-5">
+                            <button id="print_ticket" class="btn btn-primary border border-3 rounded-3 mx-5" type="button">Stampa</button>
+                            <button id="mail_ticket" class="btn btn-secondary border border-3 rounded-3 mx-5" type="button">Via Email</button>
                         </div>
                     </div>
                   </div>
