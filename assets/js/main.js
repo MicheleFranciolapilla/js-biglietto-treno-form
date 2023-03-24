@@ -26,6 +26,8 @@ const       senior_price    = 0.6;
 // Intervallo chilometrico valido per l'input
 const       min_km          = 1;
 const       max_km          = 999;
+const       max_car_nr      = 15;
+const       max_seat_row    = 32;
 
 //********** Variabili globali di riferimento **********
 
@@ -52,17 +54,54 @@ let         traveler        = "";
 
 // Variabile stringa che definirà il trattamento applicato: Sconto 20%, Prezzo pieno, Sconto 40%
 let         percent_str     = "";
+let         pass_ticket     = "";
 
 // Variabili stringa rappresentanti le variabili numeriche regular_price, final_price, discount con due cifre decimali
 let         regular_str     = "";
 let         final_str       = "";  
-let         discount_str    = "";       
+let         discount_str    = "";     
+
+let         passenger_name  = "";
+let         passenger_surn  = "";
+let         passenger_gend  = ""; 
+let         passenger_icon  = "";
+let         passenger_car   = 0;
+let         passenger_seat  = "";
+
+// function int_random_max(max_v)
+// {
+//     return Math.floor(Math.random() * max_v);
+// }
+
+// function int_random_range(min_v, max_v)
+// {
+//     if (max_v > min_v)
+//     {
+//         return min_v + int_random_max(max_v - min_v);
+//     }
+//     else
+//     {
+//         return -1;
+//     }
+// }
 
 // Funzione che restituisce una card esaustiva di output e consente l'elaborazione di un nuovo ticket
 function output_data()
 {
-    document.getElementById('output_area').innerHTML = 
-    `<div class="row flex-column w-100 p-3 border border-info rounded-3 py-2">
+    // passenger_car = int_random_range(1, max_car_nr + 1);
+    document.querySelector("#passenger #p_title").innerHTML = passenger_gend;
+    document.querySelector("#passenger #p_icon").innerHTML = passenger_icon;
+    document.querySelector("#passenger #p_surn").innerHTML = passenger_surn;
+    document.querySelector("#passenger #p_name").innerHTML = passenger_name;
+    // document.querySelector("#passenger #pass_car").innerHTML = `${passenger_car`;
+
+    // document.querySelector("#pass_fare h4").innerHTML = pass_ticket;
+    // document.querySelector("#pass_price h4").innerHTML = `${final_str} €`;
+
+
+
+    document.getElementById('output_area').innerHTML += 
+    `<div class="row w-100 p-3 border border-info rounded-3 py-2">
         <h3 class="text-center text-black-50">Il tuo biglietto è pronto!</h3>
         <div class="w-100 d-flex justify-content-between">
             <img src="assets/img/person-walking-luggage-solid.svg" alt="...">
@@ -76,10 +115,11 @@ function output_data()
             <h6>Pagato: ${final_str} €</h6>
             <h6>Sconto: ${discount_str} €</h6>
         </div>
-        <div class="align-self-center mt-3">
-            <button class="btn btn-primary" type="submit" onclick="location.reload()">Nuovo biglietto</button>
-        </div>
-    </div>`;
+    </div>
+    <div class="align-self-center mt-3">
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#your_ticket" aria-controls="your_ticket">Ottieni biglietto</button>
+        <button class="btn btn-success" type="button" onclick="location.reload()">Nuovo biglietto</button>
+</div>`;
 }
 
 // Funzione che recupera i dati dell'input, calcola tutti i parametri e produce output in console.log
@@ -91,6 +131,28 @@ function calc_price()
     const   j_18    = document.getElementById('junior').checked;
     const   mid     = document.getElementById('adult').checked;
     const   s_65    = document.getElementById('senior').checked;
+    const   gend_w  = document.getElementById('woman').checked; 
+    const   gend_m  = document.getElementById('man').checked; 
+    const   gend_o  = document.getElementById('other').checked; 
+
+    passenger_name = document.getElementById('given_name').value;
+    passenger_surn = document.getElementById('last_name').value;
+    passenger_gend = "Gentile ";
+    passenger_icon = '<i class="fa-solid fa-user"></i>';
+
+    if (gend_w)
+    {
+        passenger_gend += "Signora ";
+        passenger_icon = '<i class="fa-regular fa-user"></i>';
+    }
+    else if (gend_m)
+    {
+        passenger_gend += "Signor ";
+        passenger_icon = '<i class="fa-solid fa-user-tie"></i>';
+    }
+
+
+
 
     // Acquisizione percorrenza nella variabile globale km
     km      = document.getElementById('distance').value;
@@ -98,7 +160,8 @@ function calc_price()
     // Inizializzazione di alcune variabili sul caso di default di viaggiatore adulto (prezzo pieno)
     percent_price = adult_price;
     traveler = "Adulto/a";
-    percent_str = "Prezzo pieno";
+    percent_str = "Prezzo Standard";
+    pass_ticket = "Standard";
 
     // Controllo relativo alla congruità della percorrenza chilometrica (inclusione nell'intervallo min/max e valore intero)
     if (km >= min_km && km <= max_km && Math.floor(km) == Math.ceil(km))
@@ -110,14 +173,16 @@ function calc_price()
         {
             percent_price = junior_price;
             traveler = "Ragazzo/a";
-            percent_str = "Sconto 20%";
+            percent_str = "Sconto Ragazzi (20%)";
+            pass_ticket = "Junior";
         }
         else if (s_65)
         // Caso di viaggiatore senior (ultra sessantacinquenne - sconto 40%)
         {
             percent_price = senior_price;
             traveler = "Senior";
-            percent_str = "Sconto 40%";
+            percent_str = "Sconto Over 65 (40%)";
+            pass_ticket = "Senior";
         }
 
         // Inizializzazione della stringa identificativa del tipo di viaggio, al valore di default (viaggio breve)    
@@ -153,6 +218,9 @@ function calc_price()
         // ********** Output in console **********
         console.log(" ");
         console.log("** INIZIO **");
+        console.log(passenger_gend);
+        console.log(passenger_name);
+        console.log(passenger_surn);
         console.log(`${trip} - ${km} Km`);
         console.log(`${traveler} - ${percent_str}`);
         console.log(`Prezzo: ${regular_str} €`);
