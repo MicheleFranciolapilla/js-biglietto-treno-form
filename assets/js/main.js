@@ -86,6 +86,32 @@ function int_random_range(min_v, max_v)
      }
  }
 
+function input_toggle(bool_str)
+{
+    let toggleable_tags = document.querySelectorAll(".en_dis_toggle");
+    console.log(toggleable_tags);
+
+    for (let i = 0; i < toggleable_tags.length; i++)
+    {
+        toggleable_tags[i].disabled = (bool_str);
+    }
+    // for (let i=0; i<=toggleable_tags.length; i++)
+    // {
+
+    // }
+}
+
+function output_toggle(bool_str)
+{
+    let toggleable_tags = document.querySelectorAll("#output_area .btn");
+    console.log(toggleable_tags);
+
+    for (let i = 0; i < toggleable_tags.length; i++)
+    {
+        toggleable_tags[i].disabled = (bool_str);
+    }
+}
+
 // Funzione che restituisce una card esaustiva di output e consente l'elaborazione di un nuovo ticket
 function output_data()
 {
@@ -109,7 +135,7 @@ function output_data()
 
     passenger_car = int_random_max(max_car_nr) + 1;
     document.querySelector("#passenger #p_title").innerHTML = passenger_gend;
-    document.querySelector("#passenger #p_icon").innerHTML = passenger_icon;
+    document.querySelector("#p_icon > i").className = passenger_icon;
     document.querySelector("#passenger #p_surn").innerHTML = passenger_surn;
     document.querySelector("#passenger #p_name").innerHTML = passenger_name;
     document.querySelector("#pass_car h4").innerHTML = passenger_car;
@@ -137,7 +163,7 @@ function output_data()
         </div>
     </div>
     <div class="align-self-center mt-3">
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#your_ticket" aria-controls="your_ticket">Ottieni biglietto</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#your_ticket" aria-controls="your_ticket" onclick="output_toggle("true")">Ottieni biglietto</button>
         <button class="btn btn-success" type="button" onclick="location.reload()">Nuovo biglietto</button>
 </div>`;
 }
@@ -145,6 +171,11 @@ function output_data()
 // Funzione che recupera i dati dell'input, calcola tutti i parametri e produce output in console.log
 function calc_price()
 {
+    // document.getElementById('go_to_calc').disabled = 'true';
+    // document.getElementById('reset_input').disabled = 'true';
+    // document.getElementById('distance').disabled = 'true';
+
+
     // ********** Costanti locali **********
 
     // Costanti booleane che identificano la fascia d'età selezionata
@@ -158,25 +189,27 @@ function calc_price()
     let     jas_str = "";
     let     gnd     = 3;
 
+    input_toggle("true");
+
     passenger_name = document.getElementById('given_name').value;
     passenger_name = passenger_name.toLowerCase();
     passenger_name = passenger_name.charAt(0).toUpperCase() + passenger_name.slice(1);
     passenger_surn = document.getElementById('last_name').value;
     passenger_surn = passenger_surn.toUpperCase();
     passenger_gend = "Gentile ";
-    passenger_icon = '<i class="fa-solid fa-user"></i>';
+    passenger_icon = "fa-solid fa-user";
     gnd = 3;
 
     if (gend_w)
     {
         passenger_gend += "Signora ";
-        passenger_icon = '<i class="fa-regular fa-user"></i>';
+        passenger_icon = "fa-regular fa-user";
         gnd = 1;
     }
     else if (gend_m)
     {
         passenger_gend += "Signor ";
-        passenger_icon = '<i class="fa-solid fa-user-tie"></i>';
+        passenger_icon = "fa-solid fa-user-tie";
         gnd = 2;
     }
 
