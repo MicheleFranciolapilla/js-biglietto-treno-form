@@ -67,36 +67,56 @@ let         passenger_gend  = "";
 let         passenger_icon  = "";
 let         passenger_car   = 0;
 let         passenger_seat  = "";
+let         passenger_code  = "";
 
-// function int_random_max(max_v)
-// {
-//     return Math.floor(Math.random() * max_v);
-// }
+function int_random_max(max_v)
+{
+    return Math.floor(Math.random() * max_v);
+}
 
-// function int_random_range(min_v, max_v)
-// {
-//     if (max_v > min_v)
-//     {
-//         return min_v + int_random_max(max_v - min_v);
-//     }
-//     else
-//     {
-//         return -1;
-//     }
-// }
+function int_random_range(min_v, max_v)
+{
+     if (max_v > min_v)
+     {
+         return min_v + int_random_max(max_v - min_v);
+     }
+     else
+     {
+         return -1;
+     }
+ }
 
 // Funzione che restituisce una card esaustiva di output e consente l'elaborazione di un nuovo ticket
 function output_data()
 {
-    // passenger_car = int_random_range(1, max_car_nr + 1);
+    let seat_index = int_random_max(4) + 1;
+    let seat_nr = int_random_max(max_seat_row) + 1;
+    passenger_seat = seat_nr.toString();
+    switch (seat_index)
+    {
+        case 1:
+            passenger_seat += "A";
+            break;
+        case 2:
+            passenger_seat += "B";
+            break;        
+        case 3:
+            passenger_seat += "C";
+            break;        
+        default:
+            passenger_seat += "D";
+    }
+
+    passenger_car = int_random_max(max_car_nr) + 1;
     document.querySelector("#passenger #p_title").innerHTML = passenger_gend;
     document.querySelector("#passenger #p_icon").innerHTML = passenger_icon;
     document.querySelector("#passenger #p_surn").innerHTML = passenger_surn;
     document.querySelector("#passenger #p_name").innerHTML = passenger_name;
-    // document.querySelector("#passenger #pass_car").innerHTML = `${passenger_car`;
-
-    // document.querySelector("#pass_fare h4").innerHTML = pass_ticket;
-    // document.querySelector("#pass_price h4").innerHTML = `${final_str} €`;
+    document.querySelector("#pass_car h4").innerHTML = passenger_car;
+    document.querySelector("#pass_seat h4").innerHTML = passenger_seat;
+    document.querySelector("#pass_code h4").innerHTML = passenger_code;
+    document.querySelector("#pass_fare h4").innerHTML = pass_ticket;
+    document.querySelector("#pass_price h4").innerHTML = `${final_str} €`;
 
 
 
@@ -134,21 +154,30 @@ function calc_price()
     const   gend_w  = document.getElementById('woman').checked; 
     const   gend_m  = document.getElementById('man').checked; 
     const   gend_o  = document.getElementById('other').checked; 
+    let     km_str  = "";
+    let     jas_str = "";
+    let     gnd     = 3;
 
     passenger_name = document.getElementById('given_name').value;
+    passenger_name = passenger_name.toLowerCase();
+    passenger_name = passenger_name.charAt(0).toUpperCase() + passenger_name.slice(1);
     passenger_surn = document.getElementById('last_name').value;
+    passenger_surn = passenger_surn.toUpperCase();
     passenger_gend = "Gentile ";
     passenger_icon = '<i class="fa-solid fa-user"></i>';
+    gnd = 3;
 
     if (gend_w)
     {
         passenger_gend += "Signora ";
         passenger_icon = '<i class="fa-regular fa-user"></i>';
+        gnd = 1;
     }
     else if (gend_m)
     {
         passenger_gend += "Signor ";
         passenger_icon = '<i class="fa-solid fa-user-tie"></i>';
+        gnd = 2;
     }
 
 
@@ -162,6 +191,8 @@ function calc_price()
     traveler = "Adulto/a";
     percent_str = "Prezzo Standard";
     pass_ticket = "Standard";
+    jas_str = "a";
+    km_str = "050C";
 
     // Controllo relativo alla congruità della percorrenza chilometrica (inclusione nell'intervallo min/max e valore intero)
     if (km >= min_km && km <= max_km && Math.floor(km) == Math.ceil(km))
@@ -175,6 +206,7 @@ function calc_price()
             traveler = "Ragazzo/a";
             percent_str = "Sconto Ragazzi (20%)";
             pass_ticket = "Junior";
+            jas_str = "j";
         }
         else if (s_65)
         // Caso di viaggiatore senior (ultra sessantacinquenne - sconto 40%)
@@ -183,6 +215,7 @@ function calc_price()
             traveler = "Senior";
             percent_str = "Sconto Over 65 (40%)";
             pass_ticket = "Senior";
+            jas_str = "s";
         }
 
         // Inizializzazione della stringa identificativa del tipo di viaggio, al valore di default (viaggio breve)    
@@ -195,14 +228,17 @@ function calc_price()
             // Caso di viaggio lungo
             {
                 trip = "Viaggio lungo";
+                km_str = "999L";
             }
             else
             // Caso di viaggio medio
             {
                 trip = "Viaggio medio";
+                km_str = "250M";
             }
         }
 
+        passenger_code = passenger_surn.charAt(0) + passenger_name.charAt(0) + km_str + jas_str + gnd;
         // Calcolo del prezzo standard
         regular_price = km * basic_fare;
         regular_str = regular_price.toFixed(2);
