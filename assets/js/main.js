@@ -97,11 +97,12 @@ function input_toggle(bool_str)
     }
 }
 
-function quit_offcanvas()
+function quit_offcanvas_reload()
 {
     // DIO BENEDICA STACK OVERFLOW
     let offcanvas_var = bootstrap.Offcanvas.getInstance(your_ticket);
     offcanvas_var.hide();
+    location.reload();
 }
 
 function print_mail_ticket(do_mail)
@@ -110,9 +111,8 @@ function print_mail_ticket(do_mail)
 
     function ready_to_quit()
     {
-        info_box.innerText = "BIGLIETTO STAMPATO! <<BUON VIAGGIO>>";
-        window.setTimeout(quit_offcanvas, 20000);
-        location.reload();
+        info_box.innerHTML = "<h4>Buon viaggio</h4>";
+        setTimeout(function(){quit_offcanvas_reload()}, 5000);
     }
 
     document.querySelector("#print_ticket").disabled = true;
@@ -146,9 +146,9 @@ function print_mail_ticket(do_mail)
         info_box.className = "w-25 h-25 bg-dark";
         info_box.className += " p-3 border border-primary border-3 rounded-3 text-white-50 text-center";
         info_box.classList.add("position-absolute", "top-0", "start-50", "translate-middle");
-        info_box.innerText = "BIGLIETTO IN STAMPA";
+        info_box.innerHTML = "<h5>Biglietto in stampa</h5>";
         document.querySelector(".offcanvas").append(info_box);
-        window.setInterval(ready_to_quit,10000);
+        setTimeout(function(){ready_to_quit()}, 7000);
     }
 
 }
