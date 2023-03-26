@@ -81,7 +81,7 @@
                 <div class="offcanvas offcanvas-bottom border border-5 rounded-3 w-75 h-50 mx-auto bg-success" tabindex="-1" id="your_ticket" aria-labelledby="your_ticket_label">
                     <div class="offcanvas-header">
                       <h5 class="offcanvas-title text-white-50 mx-auto" id="your_ticket_label">IL TUO BIGLIETTO</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                      <button id="close_offcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body p-4">
                         <div class="row mx-1 bg-info border border-5">
@@ -106,7 +106,7 @@
                                 <h4>???</h4>
                             </div>
                             <div id="pass_code" class="col-2 d-flex flex-column justify-content-evenly align-items-center">
-                                <h6 class="text-black-50">Codice km</h6>
+                                <h6 class="text-black-50">Codice unico</h6>
                                 <h4>A15G</h4>
                             </div>
                             <div id="pass_fare" class="col-2 d-flex flex-column justify-content-evenly align-items-center">
@@ -119,8 +119,8 @@
                             </div>
                         </div>
                         <div class="w-100 d-flex justify-content-center pt-5">
-                            <button id="print_ticket" class="btn btn-primary border border-3 rounded-3 mx-5" type="button">Stampa</button>
-                            <button id="mail_ticket" class="btn btn-secondary border border-3 rounded-3 mx-5" type="button">Via Email</button>
+                            <button id="print_ticket" class="btn btn-primary border border-3 rounded-3 mx-5" type="button" onclick="print_mail_ticket(false)">Stampa</button>
+                            <button id="mail_ticket" class="btn btn-secondary border border-3 rounded-3 mx-5" type="button" onclick="print_mail_ticket(true)">Via Email</button>
                         </div>
                     </div>
                   </div>

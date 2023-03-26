@@ -95,21 +95,19 @@ function input_toggle(bool_str)
     {
         toggleable_tags[i].disabled = (bool_str);
     }
-    // for (let i=0; i<=toggleable_tags.length; i++)
-    // {
-
-    // }
 }
 
-function output_toggle(bool_str)
+function quit_offcanvas()
 {
-    let toggleable_tags = document.querySelectorAll("#output_area .btn");
-    console.log(toggleable_tags);
+    // DIO BENEDICA STACK OVERFLOW
+    let offcanvas_var = bootstrap.Offcanvas.getInstance(your_ticket);
+    offcanvas_var.hide();
+}
 
-    for (let i = 0; i < toggleable_tags.length; i++)
-    {
-        toggleable_tags[i].disabled = (bool_str);
-    }
+function print_mail_ticket(do_mail)
+{
+    let info_box = document.createElement("div");
+    quit_offcanvas();
 }
 
 // Funzione che restituisce una card esaustiva di output e consente l'elaborazione di un nuovo ticket
@@ -143,9 +141,6 @@ function output_data()
     document.querySelector("#pass_code h4").innerHTML = passenger_code;
     document.querySelector("#pass_fare h4").innerHTML = pass_ticket;
     document.querySelector("#pass_price h4").innerHTML = `${final_str} €`;
-
-
-
     document.getElementById('output_area').innerHTML += 
     `<div class="row w-100 p-3 border border-info rounded-3 py-2">
         <h3 class="text-center text-black-50">Il tuo biglietto è pronto!</h3>
@@ -163,9 +158,11 @@ function output_data()
         </div>
     </div>
     <div class="align-self-center mt-3">
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#your_ticket" aria-controls="your_ticket" onclick="output_toggle("true")">Ottieni biglietto</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#your_ticket" aria-controls="your_ticket">Ottieni biglietto</button>
         <button class="btn btn-success" type="button" onclick="location.reload()">Nuovo biglietto</button>
-</div>`;
+    </div>`;
+
+
 }
 
 // Funzione che recupera i dati dell'input, calcola tutti i parametri e produce output in console.log
@@ -306,3 +303,4 @@ function calc_price()
         location.reload();
     }
 }
+
