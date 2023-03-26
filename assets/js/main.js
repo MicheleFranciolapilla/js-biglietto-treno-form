@@ -106,8 +106,39 @@ function quit_offcanvas()
 
 function print_mail_ticket(do_mail)
 {
-    let info_box = document.createElement("div");
-    quit_offcanvas();
+    document.querySelector("#print_ticket").disabled = true;
+    document.querySelector("#mail_ticket").disabled = true;
+    document.querySelector("#close_offcanvas").disabled = true;
+
+    if (do_mail)
+    {
+        let mail_input_box = document.createElement("div");
+        mail_input_box.className = "w-75 h-25 ";
+        mail_input_box.className += "p-3 border border-primary border-3 rounded-3";
+        mail_input_box.classList.add("position-absolute", "top-0", "start-50", "translate-middle", "bg-dark");
+        mail_input_box.innerHTML = 
+        `<form class="row p-2">
+        <div class="col-1">
+          <label for="email_input" class="form_label text-white-50 pt-1">Email:</label>
+        </div>
+        <div class="col-6 offset-1">
+        <input type="email" class="form-control" id="email_input" placeholder="email@dominio.xxx">
+      </div>
+        <div class="col-3 offset-1">
+          <button type="submit" class="btn btn-primary">Conferma email</button>
+        </div>
+      </form>`;
+        document.querySelector(".offcanvas").append(mail_input_box);
+    }    
+    // let info_box = document.createElement("div");
+
+    // info_box.className = "w-25 h-25 bg-dark";
+    // info_box.classList.add("position-absolute", "top-50", "start-50", "translate-middle");
+    // // info_box.setAttribute("style", "z-index:999");
+    // info_box.innerText = "god bless stack overflow";
+    // document.querySelector(".offcanvas").append(info_box);
+    // console.log(info_box);
+    // quit_offcanvas();
 }
 
 // Funzione che restituisce una card esaustiva di output e consente l'elaborazione di un nuovo ticket
