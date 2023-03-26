@@ -293,9 +293,9 @@ function calc_price()
     jas_str = "a";
     km_str = "050C";
 
-    // Controllo relativo alla congruità della percorrenza chilometrica (inclusione nell'intervallo min/max e valore intero)
-    if (km >= min_km && km <= max_km && Math.floor(km) == Math.ceil(km))
-    // Percorrenza congrua
+    // Controllo relativo alla congruità della percorrenza chilometrica (inclusione nell'intervallo min/max e valore intero) e dei dati nome e cognome (diversi da stringa vuota)
+    if (km >= min_km && km <= max_km && Math.floor(km) == Math.ceil(km) && passenger_name != "" && passenger_surn != "")
+    // Dati congrui
     {
         // Controlli finalizzati a determinare il tipo di viaggiatore (fascia d'età), con conseguente settaggio delle relative variabili
         if (j_18)
@@ -366,7 +366,7 @@ function calc_price()
         output_data();
     }
     else
-    // Percorrenza non congrua
+    // Dati non congrui
     {
         console.log("DATI NON VALIDI");
         alert("I DATI INSERITI NON SONO VALIDI. CLICCA PER RICARICARE LA PAGINA");
